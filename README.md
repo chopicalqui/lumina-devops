@@ -9,17 +9,30 @@ production use.
 Lumina operates as a microservices-based application, utilizing several key services to deliver a fully integrated
 experience:
 
-| **Service**                 | **Description**                                                                                                                                       |
-| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Database**                | PostgreSQL database storing all application data, ensuring data consistency and reliability across Lumina services.                                   |
-| **Backend**                 | Backend service built with FastAPI, providing secure and performant RESTful APIs that enable frontend interactions and core business logic.           |
-| **Frontend**                | Web-based frontend application developed with React, TypeScript, and Material UI, offering an intuitive user interface for end users.                 |
-| **Identity Provider (IdP)** | External IdP used for independent user management and authentication, maintaining its own PostgreSQL database for secure, isolated user data storage. |
-| **Reverse Proxy**           | Nginx service configured to listen on the loopback interface (TCP port 8000), forwarding HTTP requests to the Frontend, Backend, and IdP.             |
-| **Message Broker**          | Redis instance used for asynchronous job handling, such as managing user notifications, to improve system responsiveness and efficiency.              |
-| **Test Database**           | Dedicated PostgreSQL database used by unittests to ensure it does not intervere with data stored in _Database_.                                       |
+| **Service**                                                    | **Description**                                                                                                                                                                                                           |
+|----------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Database**                                                   | [PostgreSQL](https://www.postgresql.org/) database storing all application data, ensuring data consistency and reliability across Lumina services.                                                                        |
+| **[Backend](https://github.com/chopicalqui/lumina-backend)**   | Backend service built with [FastAPI](https://fastapi.tiangolo.com/), providing secure and performant RESTful APIs that enable frontend interactions and core business logic.                                              |
+| **[Frontend](https://github.com/chopicalqui/lumina-frontend)** | Web-based frontend application developed with [React](https://react.dev/), [TypeScript](https://www.typescriptlang.org/), and [Material UI](https://mui.com/), offering an intuitive user interface for end users.        |
+| **Identity Provider (IdP)**                                    | External IdP [Keycloak](https://www.keycloak.org/) used for independent user management and authentication, maintaining its own [PostgreSQL](https://www.postgresql.org/ database for secure, isolated user data storage. |
+| **Reverse Proxy**                                              | [Nginx](https://nginx.org/en/) service configured to listen on the loopback interface (TCP port 8000), forwarding HTTP requests to the Frontend, Backend, and IdP.                                                        |
+| **Message Broker**                                             | [Redis](https://redis.io/de/) instance used for asynchronous job handling, such as managing user notifications, to improve system responsiveness and efficiency.                                                                              |
+| **Test Database**                                              | Dedicated [PostgreSQL](https://www.postgresql.org/) database used by unittests to ensure it does not intervere with data stored in _Database_.                                                                                                           |
 
 # Setup Development Environment
+
+This section provides instructions for setting up the development environment for Lumina.
+
+## Cloning DevOps Repository
+
+Use the following command to clone repository [lumina-devops](./) and its submodules
+[lumina-backend](https://github.com/chopicalqui/lumina-backend),
+[lumina-frontend](https://github.com/chopicalqui/lumina-frontend), and 
+[lumina-core](https://github.com/chopicalqui/lumina-core):
+
+```bash
+git clone --recurse-submodules git@github.com:chopicalqui/lumina-devops.git
+```
 
 ## Setting Up Environment Variables
 
