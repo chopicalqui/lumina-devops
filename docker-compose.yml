@@ -1,0 +1,85 @@
+# This file is part of Lumina.
+#
+# Lumina is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Lumina is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Lumina. If not, see <https://www.gnu.org/licenses/>.
+
+version: "3.1"
+services:
+  proxy:
+    build:
+      context: docker/proxy
+      dockerfile: Dockerfile
+    container_name: lumina-proxy
+    restart: unless-stopped
+    healthcheck:
+      test: curl --fail http://localhost/idp && curl --fail http://localhost/api
+      interval: 60s
+      retries: 5
+      timeout: 10s
+    depends_on:
+      - idp
+    ports:
+      - "8000:8000"
+
+  idp:
+    build:
+      dockerfile: Dockerfile
+      context: docker/idp/
+    container_name: lumina-idp
+    restart: unless-stopped
+    env_file:
+      - ./envs/.env.idp
+    healthcheck:
+      test: curl --fail http://localhost:8080/idp
+      interval: 60s
+      retries: 5
+      timeout: 10s
+    tty: true
+    depends_on:
+      - idp-db
+
+  idp-db:
+    image: postgres:latest
+    container_name: lumina-idp-db
+    volumes:
+      - idp_db_data:/var/lib/postgresql/data
+    env_file:
+      - ./envs/.env.idp.db
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+
+  backend-db:
+    image: postgres:latest
+    container_name: lumina-db
+    volumes:
+      - backend_db_data:/var/lib/postgresql/data
+    env_file:
+      - ./envs/.env.backend.core
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    command: ["postgres", "-c", "log_min_messages=notice"]
+
+  backend-db-pytest:
+    image: postgres:latest
+    container_name: lumina-db-pytest
+    env_file:
+      - ./envs/.env.pytest
+    ports:
+      - "5433:5432"
+    command: ["postgres", "-c", "log_min_messages=notice"]
+
+volumes:
+  backend_db_data:
+  idp_db_data:
