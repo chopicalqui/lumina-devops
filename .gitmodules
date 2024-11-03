@@ -1,7 +1,7 @@
-[submodule "frontend"]
-	path = frontend
+[submodule "app/frontend"]
+	path = app/frontend
 	url = git@github.com:chopicalqui/lumina-frontend.git
 
-[submodule "backend"]
-	path = backend
+[submodule "app/backend"]
+	path = app/backend
 	url = git@github.com:chopicalqui/lumina-backend.git
