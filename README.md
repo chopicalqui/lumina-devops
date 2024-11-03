@@ -58,4 +58,42 @@ Once the environment variables are set, we can launch the development environmen
 docker compose up
 ```
 
-This will launch all microservices, except _Frontend_ and _Backend_.
+This will launch all microservices, except _Frontend_ and _Backend_ (see next section).
+
+## Install Dependencies
+
+In this section, we will install the dependencies for the _Backend_ and _Frontend_ microservices. They will run in the
+host machine and not in Docker containers so that we can take advantage of hot-reloading and other development features.
+
+### Python Backend
+
+First, we navigate to the _Backend_ directory and there we create and activate a virtual environment.
+
+```bash
+cd app/backend/
+python -m venv .venv
+source .venv/bin/activate
+cd ../..
+```
+
+Next, we install all dependencies using [Poetry](https://python-poetry.org/).
+
+```bash
+cd app/backend/
+source .venv/bin/activate
+python -m pip install poetry
+poetry install --no-root
+cd app/core
+poetry install --no-root
+cd ../../../..
+```
+
+### React Frontend
+
+We navigate to the _Frontend_ directory and install all dependencies using `npm`.
+
+```bash
+cd app/frontend/
+npm install
+npm run dev
+```
