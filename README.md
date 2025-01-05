@@ -1,8 +1,19 @@
-# Lumina DevOps
+# Lumina
 
-Lumina DevOps contains the Docker specifications and environment configurations necessary for setting up the
-development environment for Lumina. It enables a streamlined local development experience but is not intended for
-production use.
+**Lumina** is a web application framework combining a React frontend with [Material UI](https://mui.com/) and a
+[FastAPI](https://fastapi.tiangolo.com/) backend. It provides essential, secure functionality needed for most web
+applications, including user management, access token handling, and session management. Designed to simplify and
+accelerate development, Lumina serves as a solid foundation for quickly bootstrapping new web applications. Its
+modular design makes it easy for anyone to adapt and build upon, whether for personal projects or professional use.
+
+![Lumina UI](./media/lumina-impression.png)
+
+## Introduction
+
+This repository is one of several repositories that make up the Lumina project. It contains the Docker specifications
+and environment configurations necessary for setting up the development environment for Lumina. It enables a
+streamlined local development experience but is not intended for production use.
+
 
 ## Microservices Overview
 
